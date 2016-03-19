@@ -4,12 +4,9 @@ require "jared/version"
 module JarEd
   class << self
     def start(args)
-      with_screen do
-        loop do
-          stop! if Curses.getch == 'q'
-          Curses.doupdate
-          break if stop
-        end
+      take_input do |char|
+        puts char
+        break if char == "\e"
       end
     end
 
@@ -17,20 +14,17 @@ module JarEd
       "Jared Norman"
     end
 
-    def stop!
-      @stop = true
-    end
-
     private
 
-    attr_reader :stop
-
-    def with_screen
+    def take_input
       Curses.init_screen
       begin
         Curses.crmode
         Curses.noecho
-        yield
+        loop do
+          yield Curses.getch.chr
+          Curses.doupdate
+        end
       ensure
         Curses.close_screen
       end
