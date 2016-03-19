@@ -1,7 +1,13 @@
 require "jared/version"
 
 module JarEd
-  def self.norman
-    "Jared Norman"
+  class << self
+    def start(args)
+      puts args.inspect
+    end
+
+    def norman
+      "Jared Norman"
+    end
   end
 end
