@@ -5,7 +5,7 @@ class JarEdTest < Minitest::Test
     refute_nil ::JarEd::VERSION
   end
 
-  def test_say_my_name
+  def test_say_my_name_say_my_name
     assert_equal "Jared Norman", JarEd.norman
   end
 end
