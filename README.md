@@ -1,6 +1,6 @@
 # JarEd
 
-The worst text editor.
+The jerk's text editor.
 
 ## Installation
 

@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jared Norman"]
   spec.email         = ["jared@creepywizard.com"]
 
-  spec.summary       = "The worst text editor."
-  spec.description   = "The worst text editor."
+  spec.summary       = "The jerk's text editor."
+  spec.description   = "The jerk's text editor."
   spec.homepage      = "https://github.com/jarednorman/jared"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
