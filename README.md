@@ -24,7 +24,7 @@ git commits and tags, and push the `.gem` file to
 
 ## Roadmap
 
-- [ ] Opening files
+- [x] Opening files
 - [ ] Inserting text
 - [ ] Deleting text
 - [ ] Saving files
