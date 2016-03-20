@@ -51,7 +51,12 @@ module JarEd
         Curses.doupdate
 
         loop do
-          yield Curses.getch.chr
+          begin
+            yield Curses.getch.chr
+          rescue RangeError
+            yield nil
+          end
+
           Curses.doupdate
         end
       ensure
