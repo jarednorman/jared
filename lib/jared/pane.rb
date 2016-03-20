@@ -5,6 +5,7 @@ module JarEd
     def refresh(window)
       window.setpos(0, 0)
       draw_lines(window)
+      window.setpos(buffer.cursor_row, buffer.cursor_column)
       window.noutrefresh
     end
 

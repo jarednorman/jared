@@ -6,11 +6,23 @@ require "jared/buffer"
 module JarEd
   class << self
     def start(args)
-      pane.buffer = Buffer.new File.open(args[0], "r")
+      buffer = Buffer.new File.open(args[0], "r")
+      pane.buffer = buffer
 
       take_input do |char|
+        case char
+        when "h"
+          buffer.cursor(0, -1)
+        when "j"
+          buffer.cursor(1, 0)
+        when "k"
+          buffer.cursor(-1, 0)
+        when "l"
+          buffer.cursor(0, 1)
+        when "\e"
+          break
+        end
         pane.refresh(window)
-        break if char == "\e"
       end
     end
 
@@ -33,8 +45,8 @@ module JarEd
       begin
         Curses.crmode
         Curses.noecho
-
         Curses.refresh
+
         yield nil
         Curses.doupdate
 
