@@ -37,7 +37,7 @@ module JarEd
     end
 
     def window
-      @window ||= Curses::Window.new(Curses.lines, Curses.cols, 0, 0)
+      @window ||= Curses::Window.new(0, 0, 0, 0)
     end
 
     def take_input
