@@ -1,3 +1,5 @@
+require 'jared/screen'
+
 module JarEd
   class Buffer
     attr_reader :window_position,
@@ -9,6 +11,26 @@ module JarEd
       @window_position = 0
       @cursor_row = 0
       @cursor_column = 0
+    end
+
+    def to_screen(width:, height:)
+      # FIXME: This is hideous.
+      screen_lines = lines.inject([]) do |screen_lines, line|
+        line = line.chomp
+        if line.chomp != ""
+          line.scan(/.{1,#{width}}/).each do |chunk|
+            if screen_lines.length < height
+              screen_lines << chunk
+            end
+          end
+        else
+          if screen_lines.length < height
+            screen_lines << line
+          end
+        end
+        screen_lines
+      end
+      Screen.new(lines: screen_lines, cursor_x: 0, cursor_y: 0)
     end
 
     def lines

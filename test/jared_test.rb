@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'jared'
 
 class JarEdTest < Minitest::Test
   def test_that_it_has_a_version_number

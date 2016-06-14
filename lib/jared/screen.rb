@@ -20,5 +20,13 @@ module JarEd
     def same_text?(other_screen)
       lines == other_screen.lines
     end
+
+    def width
+      lines.first.length
+    end
+
+    def height
+      lines.length
+    end
   end
 end

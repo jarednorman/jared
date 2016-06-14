@@ -6,10 +6,12 @@ class JarEd::ScreenTest < Minitest::Test
     screen = JarEd::Screen.new(
       cursor_x: 0,
       cursor_y: 1,
-      lines: %w(aaaa bbbb cccc dddd)
+      lines: %w(aaa bbb ccc ddd)
     )
 
-    assert_equal %w(aaaa bbbb cccc dddd), screen.lines
+    assert_equal %w(aaa bbb ccc ddd), screen.lines
+    assert_equal 4, screen.height
+    assert_equal 3, screen.width
     assert_equal 0, screen.cursor_x
     assert_equal 1, screen.cursor_y
     assert screen.valid?
