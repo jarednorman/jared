@@ -16,5 +16,9 @@ module JarEd
         cursor_x < line_length &&
         cursor_y < lines.length
     end
+
+    def same_text?(other_screen)
+      lines == other_screen.lines
+    end
   end
 end

@@ -53,4 +53,26 @@ class JarEd::ScreenTest < Minitest::Test
     )
     refute screen.valid?
   end
+
+  def test_text_equal
+    screen_one = JarEd::Screen.new(
+      cursor_x: 0,
+      cursor_y: 0,
+      lines: %w(aaa bbb ccc)
+    )
+    screen_two = JarEd::Screen.new(
+      cursor_x: 1,
+      cursor_y: 2,
+      lines: %w(aaa bbb ccc)
+    )
+    screen_three = JarEd::Screen.new(
+      cursor_x: 1,
+      cursor_y: 2,
+      lines: %w(aaa xxx ccc)
+    )
+
+    assert screen_one.same_text? screen_two
+    refute screen_one.same_text? screen_three
+    refute screen_two.same_text? screen_three
+  end
 end
