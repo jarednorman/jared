@@ -20,12 +20,12 @@ module JarEd
         if line.chomp != ""
           line.scan(/.{1,#{width}}/).each do |chunk|
             if screen_lines.length < height
-              screen_lines << chunk
+              screen_lines << chunk.ljust(width)
             end
           end
         else
           if screen_lines.length < height
-            screen_lines << line
+            screen_lines << " " * width
           end
         end
         screen_lines

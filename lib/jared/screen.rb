@@ -2,6 +2,7 @@ module JarEd
   class Screen
     attr_reader :lines, :cursor_x, :cursor_y
 
+    # @todo Rename these to cursor_row/column
     def initialize(lines:, cursor_x:, cursor_y:)
       @lines = lines
       @cursor_x = cursor_x
