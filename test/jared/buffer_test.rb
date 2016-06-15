@@ -20,8 +20,8 @@ class JarEd::BufferTest < Minitest::Test
       "1",
       "123"
     ], screen.lines
-    assert_equal 0, screen.cursor_x
-    assert_equal 0, screen.cursor_y
+    assert_equal 0, screen.cursor_column
+    assert_equal 0, screen.cursor_row
 
     mock_file.verify
   end
