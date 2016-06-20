@@ -13,37 +13,6 @@ module JarEd
 
     # @todo Make this method not awful.
     def to_screen
-      screen_lines = buffer.lines.reduce([]) do |lines, line|
-        line.wrap(width: width).each do |chunk|
-          if lines.length < height
-            lines << chunk
-          end
-        end
-
-        lines
-      end
-
-      screen_cursor_column =
-        if cursor_column < width
-          cursor_column
-        else
-          cursor_column % width
-        end
-
-      # FIXME: Make this readable/understandable.
-      screen_cursor_row =
-        buffer.lines.reduce(0) do |acc, line|
-          if line == current_line
-            if cursor_column < width
-              break acc
-            else
-              break acc + cursor_column / width
-            end
-          else
-            acc + line.wrap(width: width).length
-          end
-        end
-
       Screen.new(
         cursor_column: screen_cursor_column,
         cursor_row: screen_cursor_row,
@@ -66,7 +35,7 @@ module JarEd
 
     private
 
-    attr_reader :buffer,
+    attr_reader :buffer
 
     attr_accessor :cursor_row,
                   :cursor_column,
@@ -91,13 +60,49 @@ module JarEd
 
       if row < row_offset
         self.row_offset = row
-      elsif false # off end of screen
-        # bring it back
+      end
+
+      # FIXME: Can probably do this more efficiently.
+      # FIXME: This only fits the first row worth of the current line on the
+      # screen. The desired behaviour is that all the rows of the current line
+      # are fit on in this scenario.
+      while screen_cursor_row >= height
+        self.row_offset = row_offset + 1
       end
     end
 
     def current_line
       buffer.lines[cursor_row]
+    end
+
+    def screen_cursor_column
+      if cursor_column < width
+        cursor_column
+      else
+        cursor_column % width
+      end
+    end
+
+    def screen_cursor_row
+      buffer.lines.slice(row_offset, buffer.lines.length - 1).reduce(0) do |acc, line|
+        if line == current_line
+          if cursor_column < width
+            break acc
+          else
+            break acc + cursor_column / width
+          end
+        else
+          acc + line.wrap(width: width).length
+        end
+      end
+    end
+
+    def screen_lines
+      buffer.wrapped_lines(
+        offset: row_offset,
+        width: width,
+        height: height
+      )
     end
   end
 end

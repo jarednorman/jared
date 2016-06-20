@@ -3,6 +3,7 @@ module JarEd
     def refresh(window)
       screen = view.to_screen
       validate!(screen)
+      window.clear
       draw_screen(window, screen)
       window.setpos(screen.cursor_row, screen.cursor_column)
       window.noutrefresh
