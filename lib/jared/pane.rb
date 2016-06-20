@@ -1,9 +1,7 @@
 module JarEd
   class Pane
-    attr_accessor :buffer
-
     def refresh(window)
-      screen = buffer.to_screen(width: Curses.cols, height: Curses.lines)
+      screen = view.to_screen
       validate!(screen)
       draw_screen(window, screen)
       window.setpos(screen.cursor_row, screen.cursor_column)
@@ -11,10 +9,25 @@ module JarEd
     end
 
     def send_input(char)
-      buffer.send_input(char)
+      view.send_input(char)
+    end
+
+    def view=(view)
+      view.pane = self
+      @view = view
+    end
+
+    def width
+      Curses.cols
+    end
+
+    def height
+      Curses.lines
     end
 
     private
+
+    attr_reader :view
 
     def draw_screen(window, screen)
       screen.lines.each_with_index do |line, index|
@@ -27,8 +40,8 @@ module JarEd
     def validate!(screen)
       screen.cursor_column >= 0 &&
         screen.cursor_row >= 0 &&
-        screen.cursor_column < screen.width &&
-        screen.cursor_row < screen.height ||
+        screen.cursor_column < width &&
+        screen.cursor_row < height ||
         raise("Invalid screen.")
     end
   end

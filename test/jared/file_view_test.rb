@@ -2,11 +2,14 @@ require 'test_helper'
 require 'support/file_fixtures'
 
 module JarEd
-  class BufferTest < JarEd::Test
+  class FileViewTest < JarEd::Test
     include JarEd::Test::FileFixtures
 
+    def test_screen_size_changing
+    end
+
     def test_moving_the_cursor
-      buffer = JarEd::Buffer.new(readme)
+      buffer = JarEd::FileView.new(readme)
       subject = -> { [buffer.cursor_column, buffer.cursor_row] }
 
       assert_equal [0, 0], subject.call
@@ -29,7 +32,7 @@ module JarEd
       mock_file = Minitest::Mock.new
       mock_file.expect :each_line, %W(1234567\n 1234\n 123\n \n 1\n 12345\n)
 
-      buffer = JarEd::Buffer.new(mock_file)
+      buffer = JarEd::FileView.new(mock_file)
       screen = buffer.to_screen(width: 3, height: 9)
 
       assert_equal [

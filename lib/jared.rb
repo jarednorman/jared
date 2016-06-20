@@ -2,13 +2,15 @@ require "curses"
 require "logger"
 require "jared/version"
 require "jared/pane"
+require "jared/file_view"
 require "jared/buffer"
 
 module JarEd
   class << self
     def start(args)
+      buffer = Buffer.new(args[0])
       pane = Pane.new
-      pane.buffer = Buffer.new File.open(args[0], "r")
+      pane.view = FileView.new buffer
 
       take_input do |char|
         # FIXME: This should normalize incoming escape sequences and such.
