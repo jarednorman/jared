@@ -1,3 +1,12 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/EachWithObject:
+  Enabled: false
+
 # Relaxed.Ruby.Style
 
 Style/Alias:

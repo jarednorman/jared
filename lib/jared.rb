@@ -1,4 +1,5 @@
 require "curses"
+require "logger"
 require "jared/version"
 require "jared/pane"
 require "jared/buffer"
@@ -6,22 +7,12 @@ require "jared/buffer"
 module JarEd
   class << self
     def start(args)
-      buffer = Buffer.new File.open(args[0], "r")
-      pane.buffer = buffer
+      pane = Pane.new
+      pane.buffer = Buffer.new File.open(args[0], "r")
 
       take_input do |char|
-        case char
-        when "h"
-          buffer.cursor(0, -1)
-        when "j"
-          buffer.cursor(1, 0)
-        when "k"
-          buffer.cursor(-1, 0)
-        when "l"
-          buffer.cursor(0, 1)
-        when "\e"
-          break
-        end
+        # FIXME: This should normalize incoming escape sequences and such.
+        pane.send_input char
         pane.refresh(window)
       end
     end
@@ -30,10 +21,27 @@ module JarEd
       "Jared Norman"
     end
 
+    def logger
+      @logger ||=
+        begin
+          log_directory_path = File.join(jared_folder_path, "logs")
+          FileUtils.mkdir_p log_directory_path
+          log_file_path = File.join(log_directory_path, "jared.log")
+          logger = Logger.new(log_file_path, 10)
+          logger.level = Logger::DEBUG
+          logger
+        end
+    end
+
     private
 
-    def pane
-      @pane ||= Pane.new
+    def jared_folder_path
+      @jared_folder_path ||=
+        begin
+          path = File.join(Dir.home, ".jared")
+          FileUtils.mkdir_p(path)
+          path
+        end
     end
 
     def window

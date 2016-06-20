@@ -10,6 +10,10 @@ module JarEd
       window.noutrefresh
     end
 
+    def send_input(char)
+      buffer.send_input(char)
+    end
+
     private
 
     def draw_screen(window, screen)
