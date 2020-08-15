@@ -1,10 +1,11 @@
 require "logger"
+require "jared/editor"
 require "jared/version"
 
 module JarEd
   class << self
     def start(args)
-      Editor.new(args).start
+      Editor.new(argv: args).start
     end
 
     def logger
