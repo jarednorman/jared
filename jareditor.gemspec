@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "jareditor"
   spec.version       = JarEd::VERSION
   spec.authors       = ["Jared Norman"]
-  spec.email         = ["jared@creepywizard.com"]
+  spec.email         = ["jared@super.gd"]
 
   spec.summary       = "JarEd is the worst (text editor)."
   spec.description   = spec.summary
@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler"
+  spec.add_development_dependency "rspec", "~> 3.9"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "pry", "~> 0.10"
   spec.add_development_dependency "yard", "~> 0.8.7"

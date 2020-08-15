@@ -20,6 +20,10 @@ module JarEd
         end
     end
 
+    def jared
+      "norman"
+    end
+
     private
 
     def jared_folder_path
