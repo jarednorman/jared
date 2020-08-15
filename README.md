@@ -1,4 +1,4 @@
-# JarEd: Jared's Text Editor
+# JarEd
 
 JarEd is the worst (text editor).
 
