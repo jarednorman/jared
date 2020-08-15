@@ -9,7 +9,6 @@ jobs:
       - image: circleci/ruby:2.6
     steps:
       - checkout 
-      - ruby/install
       - bundle install
       - ruby/rspec-test
 
