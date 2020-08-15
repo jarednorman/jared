@@ -9,8 +9,7 @@ jobs:
       - image: circleci/ruby:2.6
     steps:
       - checkout 
-      - run:
-        command: bundle install
+      - run: bundle install
       - ruby/rspec-test
 
 workflows:
