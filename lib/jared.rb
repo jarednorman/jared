@@ -1,26 +1,10 @@
-require "curses"
 require "logger"
 require "jared/version"
-require "jared/pane"
-require "jared/file_view"
-require "jared/buffer"
 
 module JarEd
   class << self
     def start(args)
-      buffer = Buffer.new(args[0])
-      pane = Pane.new
-      pane.view = FileView.new buffer
-
-      take_input do |char|
-        # FIXME: This should normalize incoming escape sequences and such.
-        pane.send_input char
-        pane.refresh(window)
-      end
-    end
-
-    def norman
-      "Jared Norman"
+      Editor.new(args).start
     end
 
     def logger
@@ -44,34 +28,6 @@ module JarEd
           FileUtils.mkdir_p(path)
           path
         end
-    end
-
-    def window
-      @window ||= Curses::Window.new(0, 0, 0, 0)
-    end
-
-    def take_input
-      Curses.init_screen
-      begin
-        Curses.crmode
-        Curses.noecho
-        Curses.refresh
-
-        yield nil
-        Curses.doupdate
-
-        loop do
-          begin
-            yield Curses.getch.chr
-          rescue RangeError
-            yield nil
-          end
-
-          Curses.doupdate
-        end
-      ensure
-        Curses.close_screen
-      end
     end
   end
 end
