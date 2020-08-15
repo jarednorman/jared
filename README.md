@@ -1,4 +1,5 @@
-# JarEd
+# JarEd [![jarednorman](https://circleci.com/gh/jarednorman/jared.svg?style=svg)](https://app.circleci.com/pipelines/github/jarednorman)
+
 
 JarEd is the worst (text editor).
 
