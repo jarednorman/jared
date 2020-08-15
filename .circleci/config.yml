@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout 
       - run: bundle install
-      - ruby/rspec-test
+      - run: bundle exec rspec
 
 workflows:
   version: 2
