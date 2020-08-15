@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jared Norman"]
   spec.email         = ["jared@creepywizard.com"]
 
-  spec.summary       = "JarEd is the worst text editor."
+  spec.summary       = "JarEd is the worst (text editor)."
   spec.description   = spec.summary
   spec.homepage      = "https://github.com/jarednorman/jared"
 
